@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "57943885807",
+    "project_id": "hackathon-project-ddfdc",
+    "storage_bucket": "hackathon-project-ddfdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57943885807:android:45cf54fbbc12e9c345981a",
+        "android_client_info": {
+          "package_name": "com.example.hackathon_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57943885807-qoa9233upbihsbbut2d4npbobgjugovt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO1MZAbnkfR-5rhMMpnPBb643n6JX-cdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57943885807-qoa9233upbihsbbut2d4npbobgjugovt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
