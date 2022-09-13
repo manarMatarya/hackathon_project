@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hackathon_project/get/user_getx_controller.dart';
 import 'package:hackathon_project/models/bn_screen.dart';
 import 'package:hackathon_project/utils/colors.dart';
 import 'package:hackathon_project/view/screens/app/home_screen.dart';
+import 'package:hackathon_project/view/screens/app/menu_screen.dart';
+import 'package:hackathon_project/view/screens/app/show_transactions.dart';
+import 'package:hackathon_project/view/screens/app/update_profile.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({Key? key}) : super(key: key);
@@ -13,17 +18,23 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  int _selectedPageIndex = 0;
+  final UserGetxController _userGetxController = Get.put(UserGetxController());
 
-  final List<BnScreen> _screens = <BnScreen>[
-    const BnScreen(title: 'Home', widget: HomeScreen()),
-    const BnScreen(title: 'Users', widget: HomeScreen()),
-    const BnScreen(title: 'Categories', widget: HomeScreen()),
-    const BnScreen(title: 'Settings', widget: HomeScreen()),
-  ];
+  int _selectedPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final List<BnScreen> _screens = <BnScreen>[
+      const BnScreen(title: 'الرئيسية', widget: HomeScreen()),
+      const BnScreen(title: 'معاملاتي', widget: ShowTransactions()),
+      BnScreen(
+        title: 'حسابي',
+        widget: UpdateProfile(
+          userModel: _userGetxController.currentUser.value,
+        ),
+      ),
+      const BnScreen(title: 'القائمة', widget: MenuScreen()),
+    ];
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(child: _screens[_selectedPageIndex].widget),

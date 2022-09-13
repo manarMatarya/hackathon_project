@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hackathon_project/firebase/fb_auth_controller.dart';
+import 'package:hackathon_project/get/user_getx_controller.dart';
 import 'package:hackathon_project/models/fb_response.dart';
 import 'package:hackathon_project/utils/colors.dart';
 import 'package:hackathon_project/utils/context_extenssion.dart';
@@ -16,20 +18,21 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController _emailController;
+  late TextEditingController _idController;
   late TextEditingController _passwordController;
+
   bool _obsecure = true;
 
   @override
   void initState() {
     super.initState();
-    _emailController = TextEditingController();
+    _idController = TextEditingController();
     _passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _idController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -50,14 +53,15 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         children: [
           Align(
               alignment: Alignment.center,
-              child: Image.asset('images/logo.png')),
-          SizedBox(
-            height: 20.h,
-          ),
+              child: Image.asset(
+                'images/logo.png',
+                height: 200.h,
+                width: 250.w,
+              )),
           Text(
             'رقم الهوية ',
             style: GoogleFonts.poppins(
@@ -71,8 +75,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           AppTextField(
             hint: 'ادخل رقم الهوية',
-            keyboardType: TextInputType.number,
-            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            controller: _idController,
           ),
           SizedBox(
             height: 25.h,
@@ -93,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
             keyboardType: TextInputType.text,
             controller: _passwordController,
             obscureText: _obsecure,
+            lines: 1,
             suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
@@ -149,12 +154,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text(
                   'سجل الأن',
                   style: GoogleFonts.poppins(
-                    color: mainColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.underline,
-                    decorationColor: mainColor
-                  ),
+                      color: mainColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.underline,
+                      decorationColor: mainColor),
                 ),
               ),
             ],
@@ -171,8 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _checkData() {
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
+    if (_idController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
       return true;
     }
     context.showSnackBar(message: 'Enter required data', error: true);
@@ -180,18 +183,21 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _login() async {
-    FbResponse fbResponse = await FbAuthController().signIn(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
-    if (fbResponse.success) {
+    //  await FbAuthController().getCurrentUser(_idController.text);
+    Future.delayed(const Duration(seconds: 1), () async {
+      FbResponse fbResponse = await FbAuthController().signIn(
+        id: _idController.text,
+        password: _passwordController.text,
+      );
+      if (fbResponse.success) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, '/bottom_nav_screen');
+      }
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, '/home_screen');
-    }
-    // ignore: use_build_context_synchronously
-    context.showSnackBar(
-      message: fbResponse.message,
-      error: !fbResponse.success,
-    );
+      context.showSnackBar(
+        message: fbResponse.message,
+        error: !fbResponse.success,
+      );
+    });
   }
 }

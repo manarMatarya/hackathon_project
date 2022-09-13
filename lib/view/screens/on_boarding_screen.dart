@@ -35,19 +35,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 children: const [
                   OnBoardingContent(
                     image: 'image1',
-                    title: 'تطبيق مصرفي',
+                    title: 'تطبيق معاملتي',
                     content:
                         'من خلال تطبيق مصرفي تستطيه الحصول على كافة معاملاتك البنكية بكل سهولة ',
                   ),
                   OnBoardingContent(
                     image: 'image2',
-                    title: 'تطبيق مصرفي',
+                    title: 'تطبيق معاملتي',
                     content:
                         'من خلال تطبيق مصرفي تستطيه الحصول على كافة معاملاتك البنكية بكل سهولة ',
                   ),
                   OnBoardingContent(
                     image: 'image3',
-                    title: 'تطبيق مصرفي',
+                    title: 'تطبيق معاملتي',
                     content:
                         'من خلال تطبيق مصرفي تستطيه الحصول على كافة معاملاتك البنكية بكل سهولة ',
                   ),

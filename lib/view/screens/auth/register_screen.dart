@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/state_manager.dart';
@@ -9,6 +12,7 @@ import 'package:hackathon_project/utils/colors.dart';
 import 'package:hackathon_project/utils/context_extenssion.dart';
 import 'package:hackathon_project/view/widgets/main_button.dart';
 import 'package:hackathon_project/view/widgets/text_field.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -24,10 +28,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController _passwordController;
   late TextEditingController _nameController;
   late TextEditingController _emailController;
-  late TextEditingController _cityController;
+  late TextEditingController _accountNumberController;
+  late ImagePicker _imagePicker;
+
   bool _obsecure = true;
   String? _gender;
+  String? _branch;
+  File? _photo;
+
   List<String> genders = <String>['Male', 'Female'];
+  List<String> branches = <String>['Gaza', 'Rafah', 'Khanyounis'];
 
   @override
   void initState() {
@@ -36,8 +46,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _passwordController = TextEditingController();
     _nameController = TextEditingController();
     _emailController = TextEditingController();
-    _cityController = TextEditingController();
     _idController = TextEditingController();
+    _accountNumberController = TextEditingController();
+    _imagePicker = ImagePicker();
   }
 
   @override
@@ -46,8 +57,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _passwordController.dispose();
     _nameController.dispose();
     _emailController.dispose();
-    _cityController.dispose();
     _idController.dispose();
+    _accountNumberController.dispose();
     super.dispose();
   }
 
@@ -73,9 +84,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
         children: [
-          Image.asset(
-            'images/addimage.png',
-            height: 90.h,
+          InkWell(
+            onTap: () => _pickImage(),
+            child: _photo == null
+                ? Image.asset(
+                    'images/addimage.png',
+                    height: 90.h,
+                  )
+                : CircleAvatar(
+                    radius: 45,
+                    backgroundImage: FileImage(
+                      File(_photo!.path),
+                    ),
+                  ),
           ),
           SizedBox(
             height: 15.h,
@@ -238,6 +259,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             hint: 'ادخل كلمة المرور',
             keyboardType: TextInputType.text,
             controller: _passwordController,
+            lines: 1,
             obscureText: _obsecure,
             suffixIcon: IconButton(
               onPressed: () {
@@ -290,18 +312,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             borderRadius: BorderRadius.circular(8.r),
                           ),
                         ),
-                        items: genders.map((String gender) {
+                        items: branches.map((String branch) {
                           return DropdownMenuItem<String>(
-                            value: gender,
+                            value: branch,
                             child: Text(
-                              gender,
+                              branch,
                               style: const TextStyle(color: Colors.black),
                             ),
                           );
                         }).toList(),
                         onChanged: (String? value) {
                           setState(() {
-                            _gender = value;
+                            _branch = value;
                           });
                         }),
                   ],
@@ -328,7 +350,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     AppTextField(
                       hint: 'ادخل رقم الحساب',
                       keyboardType: TextInputType.number,
-                      controller: _phoneController,
+                      controller: _accountNumberController,
                     ),
                   ],
                 ),
@@ -393,8 +415,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (_nameController.text.isNotEmpty &&
         _emailController.text.isNotEmpty &&
         _phoneController.text.isNotEmpty &&
-        //   _cityController.text.isNotEmpty &&
-        //    _gender != null &&
+        _idController.text.isNotEmpty &&
+        _accountNumberController.text.isNotEmpty &&
+        _gender != null &&
+        _branch != null &&
+        _photo != null &&
         _passwordController.text.isNotEmpty) {
       return true;
     }
@@ -403,16 +428,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   _register() async {
-    FbResponse fbResponse = await FbAuthController().createAccount(
-      email: _emailController.text,
-      name: _nameController.text,
-      mobile: _phoneController.text,
-      password: _passwordController.text,
-    );
+    String imageUrl = await (uploadFile(_photo));
+    FbResponse fbResponse =
+        await FbAuthController().createAccount(user: user, image: imageUrl);
 
     if (fbResponse.success) {
       // ignore: use_build_context_synchronously
-
       Navigator.pop(context);
     }
     // ignore: use_build_context_synchronously
@@ -422,14 +443,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  User get user {
-    User user = User();
+  UserModel get user {
+    UserModel user = UserModel();
+    user.id = _idController.text;
     user.name = _nameController.text;
     user.email = _emailController.text;
     user.mobile = _phoneController.text;
-    // user.gender = _gender!;
-    // user.city = _cityController.text;
+    user.gender = _gender!;
     user.password = _passwordController.text;
+    user.branchId = _branch!;
+    user.accountNumber = _accountNumberController.text;
+
     return user;
   }
+
+  void _pickImage() async {
+    XFile? imageFile = await _imagePicker.pickImage(source: ImageSource.camera);
+    if (imageFile != null) {
+      setState(() {
+        _photo = File(imageFile.path);
+      });
+    }
+  }
+
+  Future<String> uploadFile(File? image) async {
+    Reference storageReference =
+        FirebaseStorage.instance.ref('files/${image!.path}');
+    UploadTask uploadTask = storageReference.putFile(image);
+    await uploadTask.then((p0) => null);
+
+    return await storageReference.getDownloadURL();
+  }
+
+  // void uploadFiles() async {
+
+  // }
 }

@@ -28,7 +28,7 @@ class AppTextField extends StatelessWidget {
       style: GoogleFonts.poppins(),
       controller: controller,
       minLines: lines,
-      maxLines: 12,
+      maxLines: suffixIcon != null ? 1 : 15,
       obscureText: obscureText,
       decoration: InputDecoration(
         constraints: BoxConstraints(minHeight: 60.h, maxHeight: 60.h),

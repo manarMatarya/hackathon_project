@@ -17,7 +17,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       bool loggedIn = FbAuthController().currentUser != null ? true : false;
-      String route = loggedIn ? '/home_screen' : '/on_boarding_screen';
+      String route = loggedIn ? '/bottom_nav_screen' : '/on_boarding_screen';
       Navigator.pushReplacementNamed(context, route);
     });
   }
@@ -25,20 +25,12 @@ class _LaunchScreenState extends State<LaunchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('images/logo.png'),
-            SizedBox(
-              height: 12.h,
-            ),
-            Text(
-              'مرحبا بك في تطبيق مصرفي',
-              style: GoogleFonts.poppins(
-                  fontSize: 16.sp, fontWeight: FontWeight.w600),
-            ),
-          ],
+        child: Image.asset(
+          'images/logo.png',
+          height: 250.h,
+          width: 250.w,
         ),
       ),
     );

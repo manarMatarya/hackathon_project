@@ -25,7 +25,7 @@ class OnBoardingContent extends StatelessWidget {
           'images/$image.png',
           height: 280.h,
         ),
-        SizedBox(height: 40.h),
+     //   SizedBox(height: 20.h),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 100.w),
           child: Column(
@@ -39,7 +39,7 @@ class OnBoardingContent extends StatelessWidget {
                   color: mainFontColor,
                 ),
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 10.h),
               Text(
                 content,
                 textAlign: TextAlign.center,

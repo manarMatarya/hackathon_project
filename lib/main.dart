@@ -5,8 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hackathon_project/prefs/shared_pref_controller.dart';
 import 'package:hackathon_project/view/screens/app/bottom_navigation_screen.dart';
+import 'package:hackathon_project/view/screens/app/complaint_screen.dart';
 import 'package:hackathon_project/view/screens/app/home_screen.dart';
 import 'package:hackathon_project/view/screens/app/loan_request_screen.dart';
+import 'package:hackathon_project/view/screens/app/success_screen.dart';
 import 'package:hackathon_project/view/screens/auth/login_screen.dart';
 import 'package:hackathon_project/view/screens/auth/register_screen.dart';
 import 'package:hackathon_project/view/screens/launch_screen.dart';
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
                     GoogleFonts.poppins(color: Colors.black, fontSize: 20.sp)),
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: '/bottom_nav_screen',
+          initialRoute: '/launch_screen',
           routes: {
             '/launch_screen': (context) => const LaunchScreen(),
             '/home_screen': (context) => const HomeScreen(),
@@ -61,6 +63,8 @@ class MyApp extends StatelessWidget {
             '/on_boarding_screen': (context) => const OnBoardingScreen(),
             '/bottom_nav_screen': (context) => const BottomNavigationScreen(),
             '/loan_request_screen': (context) => const LoanScreen(),
+            '/success_screen': (context) => const SuccessScreen(),
+            '/complaint_screen': (context) => const ComplaintScreen(),
           },
         );
       },

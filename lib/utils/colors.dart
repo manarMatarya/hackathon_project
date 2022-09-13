@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color mainColor = Color(0xFFCA50CA);
+const Color mainColor = Color(0xFFBA006A);
 const Color secondaryColor = Color(0xFF000000CC);
 const Color mainFontColor = Color(0xFF000000);
 const Color yellow = Color(0xFFF7D96F);
