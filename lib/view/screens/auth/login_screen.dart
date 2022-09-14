@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hackathon_project/firebase/fb_auth_controller.dart';
 import 'package:hackathon_project/get/user_getx_controller.dart';
 import 'package:hackathon_project/models/fb_response.dart';
+import 'package:hackathon_project/prefs/shared_pref_controller.dart';
 import 'package:hackathon_project/utils/colors.dart';
 import 'package:hackathon_project/utils/context_extenssion.dart';
 import 'package:hackathon_project/view/widgets/main_button.dart';
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _passwordController;
 
   bool _obsecure = true;
+  String userType = SharedPrefController().getValueFor(PrefKeys.type.name);
 
   @override
   void initState() {
@@ -42,8 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'تسجيل الدخول',
+        title:  Text(
+          context.localizations.login,
         ),
         leading: IconButton(
           onPressed: () {},
@@ -63,8 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: 250.w,
               )),
           Text(
-            'رقم الهوية ',
-            style: GoogleFonts.poppins(
+            userType == 'admin' ? 'البريد الالكتروني' : 'رقم الهوية ',
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -74,8 +76,12 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل رقم الهوية',
-            keyboardType: TextInputType.emailAddress,
+            hint: userType == 'admin'
+                ? ' ادخل البريد الالكتروني'
+                : 'ادخل رقم الهوية',
+            keyboardType: userType == 'admin'
+                ? TextInputType.emailAddress
+                : TextInputType.number,
             controller: _idController,
           ),
           SizedBox(
@@ -83,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Text(
             'كلمة المرور',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -117,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.pushNamed(context, '/forgot_password_screen'),
               child: Text(
                 'نسيت كلمة المرور؟',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.cairo(
                   color: mainColor,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -141,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Text(
                 'ليس لديك حساب؟',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.cairo(
                   color: const Color(0xFF6A6D7C),
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -153,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: Text(
                   'سجل الأن',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.cairo(
                       color: mainColor,
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
@@ -183,15 +189,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _login() async {
-    //  await FbAuthController().getCurrentUser(_idController.text);
     Future.delayed(const Duration(seconds: 1), () async {
-      FbResponse fbResponse = await FbAuthController().signIn(
+      FbResponse fbResponse = await FbAuthController().adminSignIn(
         id: _idController.text,
         password: _passwordController.text,
       );
       if (fbResponse.success) {
         // ignore: use_build_context_synchronously
-        Navigator.pushReplacementNamed(context, '/bottom_nav_screen');
+        userType == 'admin'
+            ? Navigator.pushReplacementNamed(context, '/admin_bottom_nav_screen')
+            : Navigator.pushReplacementNamed(context, '/bottom_nav_screen');
       }
       // ignore: use_build_context_synchronously
       context.showSnackBar(

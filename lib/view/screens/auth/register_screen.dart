@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/state_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hackathon_project/firebase/fb_auth_controller.dart';
 import 'package:hackathon_project/models/fb_response.dart';
 import 'package:hackathon_project/models/user.dart';
+import 'package:hackathon_project/prefs/shared_pref_controller.dart';
 import 'package:hackathon_project/utils/colors.dart';
 import 'package:hackathon_project/utils/context_extenssion.dart';
 import 'package:hackathon_project/view/widgets/main_button.dart';
@@ -38,6 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   List<String> genders = <String>['Male', 'Female'];
   List<String> branches = <String>['Gaza', 'Rafah', 'Khanyounis'];
+  String userType = SharedPrefController().getValueFor(PrefKeys.type.name);
 
   @override
   void initState() {
@@ -71,8 +72,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(
-          'تسجيل جديد',
+        title: Text(
+          context.localizations.register,
         ),
         leading: IconButton(
           onPressed: () {},
@@ -102,8 +103,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 15.h,
           ),
           Text(
-            'رقم الهوية ',
-            style: GoogleFonts.poppins(
+            context.localizations.id,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -113,7 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل رقم الهوية',
+            hint: context.localizations.id_hint,
             keyboardType: TextInputType.number,
             controller: _idController,
           ),
@@ -121,8 +122,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 12.h,
           ),
           Text(
-            'الاسم كاملا',
-            style: GoogleFonts.poppins(
+            context.localizations.name,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -132,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل اسمك هنا',
+            hint: context.localizations.name_hint,
             keyboardType: TextInputType.name,
             controller: _nameController,
           ),
@@ -140,8 +141,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 12.h,
           ),
           Text(
-            'البريد الالكتروني',
-            style: GoogleFonts.poppins(
+            context.localizations.email,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -151,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل عنوان بريدك الالكتروني',
+            hint: context.localizations.email_hint,
             keyboardType: TextInputType.emailAddress,
             controller: _emailController,
           ),
@@ -159,8 +160,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 12.h,
           ),
           Text(
-            'الجنس',
-            style: GoogleFonts.poppins(
+            context.localizations.gender,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -173,8 +174,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               decoration: InputDecoration(
                 constraints: BoxConstraints(minHeight: 60.h, maxHeight: 60.h),
                 hintMaxLines: 1,
-                hintText: 'الجنس',
-                hintStyle: GoogleFonts.poppins(
+                hintText: context.localizations.gender,
+                hintStyle: GoogleFonts.cairo(
                   color: const Color(0xFF8992A3),
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -206,8 +207,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 12.h,
           ),
           Text(
-            'رقم الجوال',
-            style: GoogleFonts.poppins(
+            context.localizations.mobile,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -223,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Text(
                   '790',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.cairo(
                     color: mainFontColor,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
@@ -246,7 +247,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           Text(
             'كلمة المرور',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -256,7 +257,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل كلمة المرور',
+            hint: context.localizations.password_hint,
             keyboardType: TextInputType.text,
             controller: _passwordController,
             lines: 1,
@@ -280,8 +281,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'الفرع المصرفي',
-                      style: GoogleFonts.poppins(
+                      context.localizations.branch,
+                      style: GoogleFonts.cairo(
                         color: mainFontColor,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500,
@@ -295,8 +296,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           constraints:
                               BoxConstraints(minHeight: 60.h, maxHeight: 60.h),
                           hintMaxLines: 1,
-                          hintText: 'الفرع',
-                          hintStyle: GoogleFonts.poppins(
+                          hintText: context.localizations.branch,
+                          hintStyle: GoogleFonts.cairo(
                             color: const Color(0xFF8992A3),
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
@@ -337,8 +338,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'رقم الحساب',
-                      style: GoogleFonts.poppins(
+                      context.localizations.account_number,
+                      style: GoogleFonts.cairo(
                         color: mainFontColor,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500,
@@ -348,7 +349,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       height: 12.h,
                     ),
                     AppTextField(
-                      hint: 'ادخل رقم الحساب',
+                      hint: context.localizations.account_number,
                       keyboardType: TextInputType.number,
                       controller: _accountNumberController,
                     ),
@@ -361,7 +362,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: 25.h,
           ),
           MainButton(
-            text: 'انشاء الحساب',
+            text: context.localizations.register,
             onPressed: () {
               _performRegister();
             },
@@ -373,8 +374,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'لديك حساب بالفعل؟',
-                style: GoogleFonts.poppins(
+                context.localizations.have_account,
+                style: GoogleFonts.cairo(
                   color: const Color(0xFF6A6D7C),
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -385,8 +386,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Navigator.pushNamed(context, '/login_screen');
                 },
                 child: Text(
-                  'سجل دخول الأن',
-                  style: GoogleFonts.poppins(
+                  context.localizations.login_now,
+                  style: GoogleFonts.cairo(
                       color: mainColor,
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
@@ -429,6 +430,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   _register() async {
     String imageUrl = await (uploadFile(_photo));
+    print('##############################');
+    print(imageUrl);
+    user.image = imageUrl;
+
     FbResponse fbResponse =
         await FbAuthController().createAccount(user: user, image: imageUrl);
 
@@ -453,6 +458,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     user.password = _passwordController.text;
     user.branchId = _branch!;
     user.accountNumber = _accountNumberController.text;
+    user.userType = userType;
 
     return user;
   }
@@ -474,8 +480,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     return await storageReference.getDownloadURL();
   }
-
-  // void uploadFiles() async {
-
-  // }
 }

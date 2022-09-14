@@ -17,7 +17,12 @@ class _LaunchScreenState extends State<LaunchScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       bool loggedIn = FbAuthController().currentUser != null ? true : false;
-      String route = loggedIn ? '/bottom_nav_screen' : '/on_boarding_screen';
+      String userType =
+          SharedPrefController().getValueFor(PrefKeys.type.name) ?? '';
+
+      String route = loggedIn && userType == 'user'
+          ? '/bottom_nav_screen'
+          :loggedIn && userType == 'admin'? '/admin_bottom_nav_screen':'/on_boarding_screen';
       Navigator.pushReplacementNamed(context, route);
     });
   }

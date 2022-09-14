@@ -57,15 +57,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     contentPadding: EdgeInsets.symmetric(horizontal: 15.w),
-                    leading: CircleAvatar(
-                      radius: 50.r,
-                      backgroundColor: Colors.transparent,
-                      backgroundImage:
-                          NetworkImage(controller.currentUser.value.image!),
-                    ),
+                    leading: controller.currentUser.value.image == null
+                        ? CircleAvatar(
+                            radius: 50.r,
+                            backgroundColor: mainColor.withOpacity(0.3),
+                          )
+                        : CircleAvatar(
+                            radius: 50.r,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: NetworkImage(
+                                controller.currentUser.value.image!),
+                          ),
                     title: Text(
                       'مرحبا ${controller.currentUser.value.name}',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.cairo(
                         fontSize: 16.sp,
                         height: 0,
                         fontWeight: FontWeight.bold,
@@ -74,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     minVerticalPadding: 0,
                     subtitle: Text(
                       'أهلا بعودتك',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.cairo(
                         height: 0,
                         fontSize: 16.sp,
                         color: secondFontColor,
@@ -115,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
             'اطلب خدمتك',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,
@@ -164,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
             'العمليات الأخيرة',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,
@@ -189,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             'لا يوجد عمليات',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.cairo(
                               color: const Color(0xFFB9B9B9),
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w600,
@@ -222,19 +227,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               Icons.attach_money_sharp,
                             ),
                             title: Text(
-                              '${controller.transactions[index].value} \$',
-                              style: GoogleFonts.poppins(fontSize: 14.sp),
+                              '${controller.transactions[index].value1} \$',
+                              style: GoogleFonts.cairo(fontSize: 14.sp),
                             ),
                             subtitle: Text(
-                              controller.transactions[index].reason,
-                              style: GoogleFonts.poppins(
+                              controller.transactions[index].reason!,
+                              style: GoogleFonts.cairo(
                                   fontSize: 14.sp,
                                   color:
                                       const Color(0xFF000000).withOpacity(0.8)),
                             ),
                             trailing: Text(
-                              controller.transactions[index].startDate,
-                              style: GoogleFonts.poppins(
+                              controller.transactions[index].startDate!,
+                              style: GoogleFonts.cairo(
                                 fontSize: 14.sp,
                                 color: const Color(0xFF000000).withOpacity(0.8),
                               ),

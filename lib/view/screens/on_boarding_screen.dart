@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hackathon_project/utils/colors.dart';
+import 'package:hackathon_project/utils/context_extenssion.dart';
 import 'package:hackathon_project/view/widgets/main_button.dart';
 import 'package:hackathon_project/view/widgets/on_boarding_content.dart';
 
@@ -32,24 +33,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 onPageChanged: (int currentPage) {
                   setState(() => _currentPage = currentPage);
                 },
-                children: const [
+                children: [
                   OnBoardingContent(
                     image: 'image1',
-                    title: 'تطبيق معاملتي',
-                    content:
-                        'من خلال تطبيق مصرفي تستطيه الحصول على كافة معاملاتك البنكية بكل سهولة ',
+                    title: context.localizations.boarding_title,
+                    content: context.localizations.boarding_content1,
                   ),
                   OnBoardingContent(
                     image: 'image2',
-                    title: 'تطبيق معاملتي',
-                    content:
-                        'من خلال تطبيق مصرفي تستطيه الحصول على كافة معاملاتك البنكية بكل سهولة ',
+                    title: context.localizations.boarding_title,
+                    content: context.localizations.boarding_content2,
                   ),
                   OnBoardingContent(
                     image: 'image3',
-                    title: 'تطبيق معاملتي',
-                    content:
-                        'من خلال تطبيق مصرفي تستطيه الحصول على كافة معاملاتك البنكية بكل سهولة ',
+                    title: context.localizations.boarding_title,
+                    content: context.localizations.boarding_content3,
                   ),
                 ],
               ),
@@ -82,10 +80,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               padding: EdgeInsets.symmetric(horizontal: 30.w),
               child: _currentPage == 2
                   ? MainButton(
-                      text: 'تسجيل الدخول',
+                      text: context.localizations.login,
                       onPressed: () {
                         Navigator.pushReplacementNamed(
-                            context, '/login_screen');
+                            context, '/user_type_screen');
                       },
                     )
                   : ElevatedButton(
@@ -102,8 +100,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         });
                       },
                       child: Text(
-                        'تخطي',
-                        style: GoogleFonts.poppins(
+                        context.localizations.skip,
+                        style: GoogleFonts.cairo(
                           color: mainColor,
                         ),
                       ),

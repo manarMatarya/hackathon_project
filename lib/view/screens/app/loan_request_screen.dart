@@ -66,7 +66,7 @@ class _LoanScreenState extends State<LoanScreen> {
         children: [
           Text(
             'القيمة المالية المطلوب اقتراضها',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -85,7 +85,7 @@ class _LoanScreenState extends State<LoanScreen> {
           ),
           Text(
             'سبب القرض',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -96,7 +96,7 @@ class _LoanScreenState extends State<LoanScreen> {
           ),
           TextField(
             keyboardType: TextInputType.multiline,
-            style: GoogleFonts.poppins(),
+            style: GoogleFonts.cairo(),
             controller: _reasonController,
             minLines: 10,
             maxLines: 15,
@@ -104,7 +104,7 @@ class _LoanScreenState extends State<LoanScreen> {
               hintMaxLines: 1,
               suffixIconColor: mainColor,
               hintText: 'السبب لتقديم طلب القرض',
-              hintStyle: GoogleFonts.poppins(
+              hintStyle: GoogleFonts.cairo(
                 color: secondFontColor,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500,
@@ -141,7 +141,7 @@ class _LoanScreenState extends State<LoanScreen> {
                 controlAffinity: ListTileControlAffinity.leading,
                 title: Text(
                   'بالنقر فوق زر ارسال الطلب ، فإنك توافق على الشروط والأحكام وسياسة الخصوصية الخاصة بنا',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.cairo(
                     fontSize: 14.sp,
                     color: secondFontColor,
                   ),
@@ -197,12 +197,13 @@ class _LoanScreenState extends State<LoanScreen> {
     transaction.userId = userGetxController.currentUser.value.id!;
     transaction.transactionName = 'قرض';
     transaction.reason = _reasonController.text;
-    transaction.value = double.parse(_valueController.text);
+    transaction.value1 = double.parse(_valueController.text);
     var now = DateTime.now();
     var formatter = DateFormat('yyyy-MM-dd');
     String formattedDate = formatter.format(now);
     transaction.startDate = formattedDate;
     transaction.status = 'انتظار';
+    transaction.userBranch = userGetxController.currentUser.value.branchId!;
 
     return transaction;
   }

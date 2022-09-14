@@ -1,4 +1,3 @@
-import 'package:hackathon_project/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum PrefKeys {
@@ -10,7 +9,10 @@ enum PrefKeys {
   image,
   branchId,
   accountNumber,
-  loggedIn
+  loggedIn,
+  type,
+  token,
+  language
 }
 
 class SharedPrefController {
@@ -28,18 +30,17 @@ class SharedPrefController {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  // void save({required UserModel user}) {
-  //   _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
-  //   _sharedPreferences.setString(PrefKeys.id.name, user.id);
-  //   _sharedPreferences.setString(PrefKeys.name.name, user.name);
-  //   _sharedPreferences.setString(PrefKeys.mobile.name, user.mobile);
-  //   _sharedPreferences.setString(PrefKeys.gender.name, user.gender);
-  //   _sharedPreferences.setString(PrefKeys.email.name, user.email);
-  //   _sharedPreferences.setString(PrefKeys.branchId.name, user.branchId);
-  //   _sharedPreferences.setString(PrefKeys.image.name, user.image);
-  //   _sharedPreferences.setString(
-  //       PrefKeys.accountNumber.name, user.accountNumber);
-  // }
+  void save({required String type}) {
+    _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
+    _sharedPreferences.setString(PrefKeys.type.name, type);
+  }
+
+  void saveToken(token) {
+    _sharedPreferences.setString(PrefKeys.token.name, token);
+  }
+   void changeLanguage({required String langCode}) {
+    _sharedPreferences.setString(PrefKeys.language.name, langCode);
+  }
 
   T? getValueFor<T>(String key) {
     if (_sharedPreferences.containsKey(key)) {

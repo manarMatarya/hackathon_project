@@ -14,6 +14,7 @@ class UserModel {
   String? city;
   String? status;
   String? education;
+  String? userType;
 
   UserModel();
 
@@ -33,6 +34,7 @@ class UserModel {
     city = json['city'];
     status = json['status'];
     education = json['education'];
+    userType = json['user_type'];
   }
 
   toMap() {
@@ -52,6 +54,7 @@ class UserModel {
       'city': city,
       'status': status,
       'education': education,
+      'user_type': userType,
     };
   }
 }

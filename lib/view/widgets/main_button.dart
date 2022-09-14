@@ -25,7 +25,7 @@ class MainButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: GoogleFonts.poppins(
+        style: GoogleFonts.cairo(
           color: const Color(0xFFF5F5F5),
           fontSize: 18.sp,
           fontWeight: FontWeight.w500,

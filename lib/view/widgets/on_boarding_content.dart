@@ -33,9 +33,9 @@ class OnBoardingContent extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.cairo(
                   fontWeight: FontWeight.w600,
-                  fontSize: 24.sp,
+                  fontSize: 20.sp,
                   color: mainFontColor,
                 ),
               ),
@@ -43,7 +43,7 @@ class OnBoardingContent extends StatelessWidget {
               Text(
                 content,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.cairo(
                   fontWeight: FontWeight.w500,
                   fontSize: 16.sp,
                   color: secondFontColor,

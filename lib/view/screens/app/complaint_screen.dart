@@ -102,7 +102,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
           ),
           Text(
             'العنوان',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -121,7 +121,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
           ),
           Text(
             'الوصف',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -132,7 +132,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
           ),
           TextField(
             keyboardType: TextInputType.multiline,
-            style: GoogleFonts.poppins(),
+            style: GoogleFonts.cairo(),
             controller: _contentController,
             minLines: 10,
             maxLines: 15,
@@ -140,7 +140,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
               hintMaxLines: 1,
               suffixIconColor: mainColor,
               hintText: 'اكتب وصفا دقيقا',
-              hintStyle: GoogleFonts.poppins(
+              hintStyle: GoogleFonts.cairo(
                 color: secondFontColor,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500,
@@ -225,7 +225,7 @@ Widget mainCard({name, index}) {
     child: Center(
       child: Text(
         name,
-        style: GoogleFonts.poppins(
+        style: GoogleFonts.cairo(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           color: currentStatus == index ? Colors.white : Colors.black,

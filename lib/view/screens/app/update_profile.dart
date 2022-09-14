@@ -46,8 +46,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
   String? _branch;
   File? _photo;
   bool isFree = true;
-
-  List<String> genders = <String>['Male', 'Female'];
   List<String> branches = <String>['Gaza', 'Rafah', 'Khanyounis'];
 
   @override
@@ -95,6 +93,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> genders = <String>[
+      context.localizations.male,
+      context.localizations.female
+    ];
+    List<String> branches = <String>['Gaza', 'Rafah', 'Khanyounis'];
     String countryCode = 'PS';
     String flag = countryCode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
@@ -103,8 +106,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'حسابي',
+        title: Text(
+          context.localizations.my_account,
         ),
         automaticallyImplyLeading: false,
         actions: [
@@ -138,8 +141,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 15.h,
           ),
           Text(
-            'رقم الهوية ',
-            style: GoogleFonts.poppins(
+            context.localizations.id,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -149,7 +152,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل رقم الهوية',
+            hint: context.localizations.id_hint,
             keyboardType: TextInputType.number,
             controller: _idController,
           ),
@@ -157,8 +160,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'الاسم كاملا',
-            style: GoogleFonts.poppins(
+            context.localizations.name,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -168,7 +171,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل اسمك هنا',
+            hint: context.localizations.name_hint,
             keyboardType: TextInputType.name,
             controller: _nameController,
           ),
@@ -176,8 +179,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'البريد الالكتروني',
-            style: GoogleFonts.poppins(
+            context.localizations.email,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -187,7 +190,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل عنوان بريدك الالكتروني',
+            hint: context.localizations.email_hint,
             keyboardType: TextInputType.emailAddress,
             controller: _emailController,
           ),
@@ -195,8 +198,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'الجنس',
-            style: GoogleFonts.poppins(
+            context.localizations.gender,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -210,7 +213,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 constraints: BoxConstraints(minHeight: 60.h, maxHeight: 60.h),
                 hintMaxLines: 1,
                 hintText: _gender,
-                hintStyle: GoogleFonts.poppins(
+                hintStyle: GoogleFonts.cairo(
                   color: Colors.black,
                 ),
                 enabledBorder: OutlineInputBorder(
@@ -227,7 +230,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   value: gender,
                   child: Text(
                     gender,
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.cairo(
                       color: Colors.black,
                     ),
                   ),
@@ -242,8 +245,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'رقم الجوال',
-            style: GoogleFonts.poppins(
+            context.localizations.mobile,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -259,7 +262,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Text(
                   '790',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.cairo(
                     color: mainFontColor,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
@@ -287,8 +290,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'الفرع المصرفي',
-                      style: GoogleFonts.poppins(
+                      context.localizations.branch,
+                      style: GoogleFonts.cairo(
                         color: mainFontColor,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500,
@@ -303,7 +306,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               BoxConstraints(minHeight: 60.h, maxHeight: 60.h),
                           hintMaxLines: 1,
                           hintText: _branch,
-                          hintStyle: GoogleFonts.poppins(
+                          hintStyle: GoogleFonts.cairo(
                             color: Colors.black,
                           ),
                           enabledBorder: OutlineInputBorder(
@@ -322,7 +325,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             value: branch,
                             child: Text(
                               branch,
-                              style: GoogleFonts.poppins(
+                              style: GoogleFonts.cairo(
                                 color: Colors.black,
                               ),
                             ),
@@ -344,8 +347,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'رقم الحساب',
-                      style: GoogleFonts.poppins(
+                      context.localizations.account_number,
+                      style: GoogleFonts.cairo(
                         color: mainFontColor,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500,
@@ -355,7 +358,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       height: 12.h,
                     ),
                     AppTextField(
-                      hint: 'ادخل رقم الحساب',
+                      hint: context.localizations.account_number,
                       keyboardType: TextInputType.number,
                       controller: _accountNumberController,
                     ),
@@ -368,8 +371,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'تاريخ الميلاد',
-            style: GoogleFonts.poppins(
+            context.localizations.bd,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -379,7 +382,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل تاريخ ميلادك',
+            hint: context.localizations.bd_hint,
             keyboardType: TextInputType.name,
             controller: _bdController,
           ),
@@ -387,8 +390,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'الجنسية',
-            style: GoogleFonts.poppins(
+            context.localizations.nationality,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -398,7 +401,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ما جنسيتك',
+            hint: context.localizations.nationality_hint,
             keyboardType: TextInputType.name,
             controller: _nationalityController,
           ),
@@ -406,8 +409,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'العنوان',
-            style: GoogleFonts.poppins(
+            context.localizations.address,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -417,7 +420,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'العنوان',
+            hint: context.localizations.address_hint,
             keyboardType: TextInputType.name,
             controller: _addressController,
           ),
@@ -425,8 +428,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'المدينة',
-            style: GoogleFonts.poppins(
+            context.localizations.city,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -436,7 +439,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ادخل مدينتك',
+            hint: context.localizations.city_hint,
             keyboardType: TextInputType.name,
             controller: _cityController,
           ),
@@ -444,8 +447,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'الحالة الاجتماعية',
-            style: GoogleFonts.poppins(
+            context.localizations.status,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -455,7 +458,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ما الحالة الاجتماعية',
+            hint: context.localizations.status_hint,
             keyboardType: TextInputType.name,
             controller: _statusController,
           ),
@@ -463,8 +466,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           Text(
-            'المستوى التعليمي',
-            style: GoogleFonts.poppins(
+            context.localizations.education,
+            style: GoogleFonts.cairo(
               color: mainFontColor,
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
@@ -474,7 +477,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 12.h,
           ),
           AppTextField(
-            hint: 'ما هو المستوى التعليمي',
+            hint: context.localizations.education_hint,
             keyboardType: TextInputType.name,
             controller: _educationController,
           ),
@@ -482,7 +485,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             height: 25.h,
           ),
           MainButton(
-            text: 'تحديث البيانات',
+            text: context.localizations.update,
             onPressed: () {
               _update();
             },

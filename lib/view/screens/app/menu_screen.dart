@@ -25,7 +25,7 @@ class MenuScreen extends StatelessWidget {
           ),
           title: Text(
             'الشكاوي والمقترحات',
-            style: GoogleFonts.poppins(fontSize: 16.sp),
+            style: GoogleFonts.cairo(fontSize: 16.sp),
           ),
           trailing: const Icon(
             Icons.arrow_forward_ios,
@@ -41,7 +41,7 @@ class MenuScreen extends StatelessWidget {
           ),
           title: Text(
             'حول التطبيق',
-            style: GoogleFonts.poppins(fontSize: 16.sp),
+            style: GoogleFonts.cairo(fontSize: 16.sp),
           ),
           trailing: const Icon(
             Icons.arrow_forward_ios,
@@ -57,7 +57,7 @@ class MenuScreen extends StatelessWidget {
           ),
           title: Text(
             'اتصل بنا',
-            style: GoogleFonts.poppins(fontSize: 16.sp),
+            style: GoogleFonts.cairo(fontSize: 16.sp),
           ),
           trailing: const Icon(
             Icons.arrow_forward_ios,
@@ -73,7 +73,7 @@ class MenuScreen extends StatelessWidget {
           ),
           title: Text(
             'تسجيل الخروج',
-            style: GoogleFonts.poppins(fontSize: 16.sp),
+            style: GoogleFonts.cairo(fontSize: 16.sp),
           ),
           trailing: const Icon(
             Icons.arrow_forward_ios,

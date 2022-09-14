@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hackathon_project/models/fb_response.dart';
 import 'package:hackathon_project/models/user.dart';
-import 'package:hackathon_project/prefs/shared_pref_controller.dart';
 import 'package:hackathon_project/utils/fb_helper.dart';
 
 class FbAuthController with FirebaseHelper {
@@ -16,7 +12,7 @@ class FbAuthController with FirebaseHelper {
   UserModel userModel = UserModel();
 
   //LOGIN
-  Future<FbResponse> signIn({
+  Future<FbResponse> adminSignIn({
     required String id,
     required String password,
   }) async {
@@ -48,9 +44,7 @@ class FbAuthController with FirebaseHelper {
         password: user.password!,
       );
       await userCredential.user!.sendEmailVerification();
-      user.image = image;
       saveUserData(user);
-      //SharedPrefController().save(user: user);
 
       return FbResponse('Registered successfully, verify email', true);
     } on FirebaseAuthException catch (e) {

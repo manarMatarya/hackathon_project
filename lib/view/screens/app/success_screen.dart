@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hackathon_project/utils/context_extenssion.dart';
 import 'package:hackathon_project/view/widgets/main_button.dart';
 
 class SuccessScreen extends StatelessWidget {
@@ -23,8 +24,8 @@ class SuccessScreen extends StatelessWidget {
               height: 20.h,
             ),
             Text(
-              'تم ارسال طلبك بنجاح',
-              style: GoogleFonts.poppins(
+              context.localizations.success,
+              style: GoogleFonts.cairo(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.sp,
               ),
@@ -33,7 +34,7 @@ class SuccessScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: MainButton(
-                text: 'الرئيسية',
+                text: context.localizations.home,
                 onPressed: () {
                   Navigator.pushNamed(context, '/bottom_nav_screen');
                 },

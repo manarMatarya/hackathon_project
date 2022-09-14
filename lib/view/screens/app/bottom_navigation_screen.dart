@@ -42,30 +42,23 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         onTap: (int selectedPageIndex) {
           setState(() => _selectedPageIndex = selectedPageIndex);
         },
-
         currentIndex: _selectedPageIndex,
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
-        // type: BottomNavigationBarType.shifting,
-        //*********************************
         showSelectedLabels: true,
         showUnselectedLabels: true,
-        //*********************************
-        // fixedColor: Colors.black,
         selectedItemColor: mainColor,
-
         selectedLabelStyle: GoogleFonts.montserrat(
           fontWeight: FontWeight.bold,
           fontSize: 10,
         ),
         selectedFontSize: 14,
-        //*********************************
         unselectedItemColor: const Color(0xFF979797),
         unselectedIconTheme: IconThemeData(
           color: Colors.grey.shade800,
           // size: 18,
         ),
-        unselectedLabelStyle: GoogleFonts.poppins(
+        unselectedLabelStyle: GoogleFonts.cairo(
           fontSize: 14.sp,
         ),
         unselectedFontSize: 12,

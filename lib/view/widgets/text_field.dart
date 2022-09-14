@@ -7,27 +7,30 @@ class AppTextField extends StatelessWidget {
   const AppTextField({
     Key? key,
     required this.controller,
-    required this.hint,
+     this.hint,
     required this.keyboardType,
     this.suffixIcon,
     this.obscureText = false,
+    this.enabled = true,
     this.lines = 1,
   }) : super(key: key);
 
   final TextEditingController controller;
-  final String hint;
+  final String? hint;
   final TextInputType keyboardType;
   final Widget? suffixIcon;
   final bool obscureText;
+  final bool? enabled;
   final int? lines;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       keyboardType: keyboardType,
-      style: GoogleFonts.poppins(),
+      style: GoogleFonts.cairo(),
       controller: controller,
       minLines: lines,
+      enabled: enabled,
       maxLines: suffixIcon != null ? 1 : 15,
       obscureText: obscureText,
       decoration: InputDecoration(
@@ -36,9 +39,9 @@ class AppTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
         suffixIconColor: mainColor,
         hintText: hint,
-        hintStyle: GoogleFonts.poppins(
+        hintStyle: GoogleFonts.cairo(
           color: secondFontColor,
-          fontSize: 18.sp,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w500,
         ),
         enabledBorder: OutlineInputBorder(

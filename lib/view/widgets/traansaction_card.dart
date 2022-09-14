@@ -29,13 +29,13 @@ class TransactionCard extends StatelessWidget {
             Image.asset('images/$image.png'),
             Text(
               title,
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.cairo(
                 fontSize: 14.sp,
               ),
             ),
             Text(
               sub,
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.cairo(
                 height: 0.h,
                 fontSize: 10.sp,
               ),

@@ -1,33 +1,45 @@
 class TransactionModel {
+  late String id;
   late String userId;
   late String transactionName;
-  late double value;
-  late String reason;
+  double? value1;
+  String? reason;
   late String status;
-  late String startDate;
-  String? endDate;
+  String? startDate;
+  late String userBranch;
+  String? paper;
+  String? time;
+  String? person;
 
   TransactionModel();
 
   TransactionModel.fromMap(Map<String, dynamic> json) {
+    id = json['id'];
     userId = json['user_id'];
     transactionName = json['transaction_name'];
-    value = json['value'];
+    value1 = json['value'];
     reason = json['reason'];
     status = json['status'];
     startDate = json['startDate'];
-    endDate = json['endDate'];
+    userBranch = json['user_branch'];
+    paper = json['paper'];
+    time = json['time'];
+    person = json['person'];
   }
 
   toMap() {
     return {
       'user_id': userId,
       'transaction_name': transactionName,
-      'value': value,
+      'value': value1,
       'reason': reason,
       'status': status,
       'startDate': startDate,
-      'endDate': endDate,
+      'user_branch': userBranch,
+      'id': id,
+      'time': time,
+      'person': person,
+      'paper': paper,
     };
   }
 }

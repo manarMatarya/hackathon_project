@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hackathon_project/get/transaction_getx_controller.dart';
 import 'package:hackathon_project/utils/colors.dart';
+import 'package:hackathon_project/utils/context_extenssion.dart';
 
 class ShowTransactions extends StatefulWidget {
   const ShowTransactions({Key? key}) : super(key: key);
@@ -15,23 +16,31 @@ class ShowTransactions extends StatefulWidget {
 class _ShowTransactionsState extends State<ShowTransactions> {
   final TransactionGetxController _transactionGetxController =
       Get.put(TransactionGetxController());
+
   @override
   void initState() {
     super.initState();
     _transactionGetxController.getTransaction(status: 'انتظار');
   }
 
-  List statuses = ['انتظار', 'مراجعة', 'مقبول', 'مرفوض'];
   var currentStatus = 0;
   List subjects = [];
+
   @override
   Widget build(BuildContext context) {
+    List statuses = [
+      context.localizations.waiting,
+      context.localizations.revision,
+      context.localizations.accept,
+      context.localizations.reject,
+    ];
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'معاملاتي',
+        title: Text(
+          context.localizations.my_transaction,
         ),
         automaticallyImplyLeading: false,
         actions: [
@@ -96,7 +105,7 @@ class _ShowTransactionsState extends State<ShowTransactions> {
                       ? Center(
                           child: Text(
                             'لا يوجد معاملات بعد',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.cairo(
                               fontWeight: FontWeight.bold,
                               fontSize: 20.sp,
                             ),
@@ -131,19 +140,19 @@ class _ShowTransactionsState extends State<ShowTransactions> {
                                 Icons.attach_money_sharp,
                               ),
                               title: Text(
-                                '${controller.transactions[index].value} \$',
-                                style: GoogleFonts.poppins(fontSize: 14.sp),
+                                '${controller.transactions[index].value1} \$',
+                                style: GoogleFonts.cairo(fontSize: 14.sp),
                               ),
                               subtitle: Text(
-                                controller.transactions[index].reason,
-                                style: GoogleFonts.poppins(
+                                controller.transactions[index].reason!,
+                                style: GoogleFonts.cairo(
                                     fontSize: 14.sp,
                                     color: const Color(0xFF000000)
                                         .withOpacity(0.8)),
                               ),
                               trailing: Text(
-                                controller.transactions[index].startDate,
-                                style: GoogleFonts.poppins(
+                                controller.transactions[index].startDate!,
+                                style: GoogleFonts.cairo(
                                   fontSize: 14.sp,
                                   color:
                                       const Color(0xFF000000).withOpacity(0.8),
@@ -176,7 +185,7 @@ class _ShowTransactionsState extends State<ShowTransactions> {
       child: Center(
         child: Text(
           name,
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.cairo(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: currentStatus == index && index == 0
